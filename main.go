@@ -11,6 +11,7 @@ import (
 	"vandyahmad24/privy/app/tracing"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/recover"
 	opentracing "github.com/opentracing/opentracing-go"
 )
 
@@ -23,9 +24,11 @@ func main() {
 	app := fiber.New(fiber.Config{
 		BodyLimit: 8 * 1024 * 1024, // this is the default limit of 4MB
 	})
+	app.Use(recover.New())
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.JSON("welcome to Cake Service")
 	})
+
 	db := db.InitDb()
 	router.CakeRouter(app, db)
 
