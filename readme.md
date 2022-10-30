@@ -21,5 +21,8 @@
     ``` make run ```
 
 ### API Documentations
-
 1. https://www.getpostman.com/collections/45e48f7893fc4710b36f
+### How to run unit test
+1. First you must go to usecase folder
+ ``` cd app/usecase/cakeusecase```
+2. ``` go test -v cake_usecase.go cake_usecase_port.go cake_usecase_test.go -cover  ```
