@@ -26,3 +26,9 @@
 1. First you must go to usecase folder
  ``` cd app/usecase/cakeusecase```
 2. ``` go test -v cake_usecase.go cake_usecase_port.go cake_usecase_test.go -cover  ```
+
+### Run With Docker
+- Build Container
+" docker build -f Dockerfile -t restful-cake . "
+- Run with docker 
+" docker-compose up --build -d "
