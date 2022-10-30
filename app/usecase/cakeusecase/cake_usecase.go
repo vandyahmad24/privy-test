@@ -3,7 +3,6 @@ package cakeusecase
 import (
 	"context"
 	"errors"
-	"time"
 	"vandyahmad24/privy/app/db/model"
 	"vandyahmad24/privy/app/domain/repository"
 	"vandyahmad24/privy/app/tracing"
@@ -33,9 +32,6 @@ func (e *CakeUsecase) CreateCake(ctx context.Context, in interface{}) (interface
 		tracing.LogError(sp, err)
 		return nil, errors.New("request cannot be nil")
 	}
-
-	inputCake.CreatedAt = time.Now()
-	inputCake.UpdatedAt = time.Now()
 
 	data, err := e.repository.InsertCake(sp, inputCake)
 	if err != nil {
@@ -100,20 +96,19 @@ func (e *CakeUsecase) UpdateCake(ctx context.Context, id int, in interface{}) (i
 	if in == nil {
 		return nil, errors.New("request cannot be nil")
 	}
-	_, err := e.repository.Get(sp, id)
-	if err != nil {
-		tracing.LogError(sp, err)
-		return nil, errors.New("Cake Not Fund")
-	}
 
 	var inputCake *model.Cake
-	err = mapstructure.Decode(in, &inputCake)
+	err := mapstructure.Decode(in, &inputCake)
 	if err != nil {
 		tracing.LogError(sp, err)
 		return nil, errors.New("request cannot be nil")
 	}
 
-	inputCake.UpdatedAt = time.Now()
+	_, err = e.repository.Get(sp, id)
+	if err != nil {
+		tracing.LogError(sp, err)
+		return nil, errors.New("Cake Not Fund")
+	}
 
 	data, err := e.repository.Update(sp, id, inputCake)
 	if err != nil {
