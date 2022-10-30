@@ -2,6 +2,7 @@ package api
 
 import (
 	"strconv"
+	"time"
 	"vandyahmad24/privy/app/domain/entity"
 	"vandyahmad24/privy/app/tracing"
 	uc "vandyahmad24/privy/app/usecase/cakeusecase"
@@ -38,6 +39,8 @@ func (p *CakeService) CreateCakeService(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(errValidate)
 	}
 
+	inpuCake.CreatedAt = time.Now()
+	inpuCake.UpdatedAt = time.Now()
 	res, err := p.svc.CreateCake(ctx, inpuCake)
 	if err != nil {
 		tracing.LogError(sp, err)
@@ -133,6 +136,8 @@ func (p *CakeService) UpdateCakeService(c *fiber.Ctx) error {
 		tracing.LogObject(sp, "ErrorValidates", errValidate)
 		return c.Status(fiber.StatusBadRequest).JSON(errValidate)
 	}
+
+	inpuCake.UpdatedAt = time.Now()
 
 	res, err := p.svc.UpdateCake(ctx, idInt, inpuCake)
 	if err != nil {
