@@ -1,7 +1,7 @@
 ##### Stage 1 #####
 
 ### Use golang:1.15 as base image for building the application
-FROM golang:1.17-alpine as builder
+FROM golang:1.19-alpine as builder
 
 ### Create new directly and set it as working directory
 RUN mkdir -p /app
