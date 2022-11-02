@@ -3,6 +3,7 @@ package cakeusecase
 import (
 	"context"
 	"errors"
+	"fmt"
 	"vandyahmad24/privy/app/db/model"
 	"vandyahmad24/privy/app/domain/repository"
 	"vandyahmad24/privy/app/tracing"
@@ -22,10 +23,8 @@ func (e *CakeUsecase) CreateCake(ctx context.Context, in interface{}) (interface
 	sp := tracing.CreateChildSpan(ctx, string("Interactor"))
 	defer sp.Finish()
 	tracing.LogRequest(sp, in)
+	fmt.Println("in ", in)
 
-	if in == nil {
-		return nil, errors.New("request cannot be nil")
-	}
 	var inputCake *model.Cake
 	err := mapstructure.Decode(in, &inputCake)
 	if err != nil {

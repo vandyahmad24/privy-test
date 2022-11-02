@@ -9,6 +9,7 @@ import (
 	"vandyahmad24/privy/app/db"
 	"vandyahmad24/privy/app/router"
 	"vandyahmad24/privy/app/tracing"
+	"vandyahmad24/privy/app/util"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/recover"
@@ -27,6 +28,10 @@ func main() {
 	app.Use(recover.New())
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.JSON("welcome to Cake Service")
+	})
+	fmt.Println(util.GetEnvVariable("MYSQL_DBNAME"))
+	app.Get("/panic", func(c *fiber.Ctx) error {
+		panic("as")
 	})
 
 	db := db.InitDb()

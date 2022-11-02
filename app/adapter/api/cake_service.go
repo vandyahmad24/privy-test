@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"strconv"
 	"time"
 	"vandyahmad24/privy/app/domain/entity"
@@ -39,8 +40,10 @@ func (p *CakeService) CreateCakeService(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(errValidate)
 	}
 
-	inpuCake.CreatedAt = time.Now()
-	inpuCake.UpdatedAt = time.Now()
+	inpuCake.CreatedAt = time.Now().Format("2006-01-02 15:04:05")
+	fmt.Println(inpuCake.CreatedAt)
+	inpuCake.UpdatedAt = time.Now().Format("2006-01-02 15:04:05")
+	// fmt.Println(inpuCake)
 	res, err := p.svc.CreateCake(ctx, inpuCake)
 	if err != nil {
 		tracing.LogError(sp, err)
@@ -137,7 +140,7 @@ func (p *CakeService) UpdateCakeService(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(errValidate)
 	}
 
-	inpuCake.UpdatedAt = time.Now()
+	inpuCake.UpdatedAt = time.Now().Format("2006-01-02 15:04:05")
 
 	res, err := p.svc.UpdateCake(ctx, idInt, inpuCake)
 	if err != nil {

@@ -5,7 +5,7 @@ create table cake
     description varchar(255),
     rating      float,
     image       varchar(255),
-    created_at  datetime(3)  null,
-    updated_at  datetime(3)  null
+    created_at  datetime(5)  null,
+    updated_at  datetime(5)  null
 );
 
