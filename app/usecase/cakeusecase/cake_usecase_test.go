@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"testing"
-	"time"
 	"vandyahmad24/privy/app/db/model"
 	"vandyahmad24/privy/app/mock/repository"
 	"vandyahmad24/privy/app/tracing"
@@ -28,8 +27,6 @@ func TestCakeUsecase(t *testing.T) {
 						Description: "TEST",
 						Rating:      1,
 						Image:       "TEST",
-						CreatedAt:   time.Now(),
-						UpdatedAt:   time.Now(),
 					}
 					mockRepo.On("InsertCake", request).Return(mock.Anything, nil).Once()
 					uc := NewCakeUsecase(&mockRepo)

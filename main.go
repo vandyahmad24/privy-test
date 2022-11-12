@@ -18,6 +18,10 @@ import (
 
 func main() {
 	fmt.Println("Privy Test By Vandy Ahmad")
+	port := os.Getenv("PORT_GOLANG")
+	if port == "" {
+		log.Fatal("Port env is requeird")
+	}
 	tracer, closer := tracing.Init("Cake Service")
 	defer closer.Close()
 	opentracing.SetGlobalTracer(tracer)
@@ -31,14 +35,14 @@ func main() {
 	})
 	fmt.Println(util.GetEnvVariable("MYSQL_DBNAME"))
 	app.Get("/panic", func(c *fiber.Ctx) error {
-		panic("as")
+		panic("handle panic")
 	})
 
 	db := db.InitDb()
 	router.CakeRouter(app, db)
 
 	go func() {
-		app.Listen(":8080")
+		app.Listen(fmt.Sprintf(":%s", port))
 	}()
 	c := make(chan os.Signal)
 	signal.Notify(c, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)

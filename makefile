@@ -2,6 +2,7 @@
 create-migration:
 	migrate create -ext sql -dir migration $(NAME)	
 run-migration:
-	migrate -database "mysql://root:root@tcp(localhost:3305)/cake" -path migration up
+	@echo "running migration ${PORT_GOLANG}"
+	migrate -database "mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@tcp(${MYSQL_HOST}:${MYSQL_PORT})/${MYSQL_DBNAME}" -path migration up
 run:
 	go run main.go

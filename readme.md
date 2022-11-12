@@ -12,13 +12,16 @@
 5. Install make file if you use linux already bundled,
     In Windows you can install with choco command :
     ``` choco install make ```
-
-## How to run
-
+## How to run in local
 1. First You Must Run Migration
     ``` make run-migration ```
 2. Running Program with command
     ``` make run ```
+
+## In Docker
+1. docker-compose up -d
+2. docker exec -it privy-service-privy-1 sh
+3. make run-migration
 
 ### API Documentations
 1. https://www.getpostman.com/collections/45e48f7893fc4710b36f
